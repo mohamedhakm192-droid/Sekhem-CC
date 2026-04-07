@@ -1,15 +1,18 @@
-# SEKHEM-CC: Advanced Encryption Engine
-import base64
+import datetime
 
-def triad_encrypt(plain_text, key):
-    # دمج النص مع المفتاح السري (قانون التثليث)
-    combined = f"{plain_text}::{key}"
-    encoded = base64.b64encode(combined.encode("utf-8"))
-    return encoded.decode("utf-8")
-
-# المفتاح السري
+# --- اختبار الزمن الحقيقي لـ Sekhem-CC ---
+current_time = "2026-04-07 10:50 PM" # الوقت الحالي بدقة
 MY_KEY = "SK-TR-2026-X99"
 
-# تجربة حماية رسالة
-secret_msg = "الهدف مؤمن تماما"
-print(f"🛡️ الشفرة الناتجة: {triad_encrypt(secret_msg, MY_KEY)}")
+# الرسالة التي نريد حمايتها الآن
+my_message = "نظام Sekhem-CC يعمل بنجاح في الزمن الحقيقي"
+
+# عملية التشفير
+cipher = triad_encrypt(my_message, MY_KEY)
+
+# طباعة النتيجة النهائية للتأكد
+print(f"--- [REAL-TIME LOG: {current_time}] ---")
+print(f"📡 الإدخال: {my_message}")
+print(f"🔐 التشفير: {cipher}")
+print(f"🔓 التحقق: {triad_decrypt(cipher, MY_KEY)}")
+
