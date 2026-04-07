@@ -1,23 +1,7 @@
-# SEKHEM-CC: The Triad Logic Algorithm
-# Governing Law: Triangulation
-# Founder: Mohamed Abd El Naby
+# كود الربط الجديد
+import os
 
-class SekhemShield:
-    def __init__(self):
-        # الأضلاع الثلاثة للمنظومة (التثليث)
-        self.pillars = {
-            "Logic": True,
-            "Geometry": True,
-            "Execution": True
-        }
-
-    def verify_integrity(self):
-        # قانون التثليث: سقوط ضلع يعني سقوط الحماية بالكامل
-        if all(self.pillars.values()):
-            return "🛡️ STATUS: SECURE (Triangulation Intact)"
-        else:
-            return "⚠️ ALERT: BREACH (Triangulation Broken)"
-
-# تشغيل النسخة الأولية للمنظومة
-sekhem = SekhemShield()
-print(sekhem.verify_integrity())
+# محاكاة قراءة الهوية من الخزنة
+admin = "M_ABD_EL_NABY" 
+print(f"🔓 تم الدخول بواسطة الآدمن: {admin}")
+print("🛡️ نظام Sekhem-CC يعمل الآن بكامل طاقته.")
