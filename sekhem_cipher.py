@@ -1,18 +1,54 @@
+# SEKHEM-CC: Interactive Command Center
+import base64
 import datetime
 
-# --- اختبار الزمن الحقيقي لـ Sekhem-CC ---
-current_time = "2026-04-07 10:50 PM" # الوقت الحالي بدقة
-MY_KEY = "SK-TR-2026-X99"
+# --- المحرك الرئيسي ---
+def triad_encrypt(text, key):
+    combined = f"{text}::{key}"
+    return base64.b64encode(combined.encode("utf-8")).decode("utf-8")
 
-# الرسالة التي نريد حمايتها الآن
-my_message = "نظام Sekhem-CC يعمل بنجاح في الزمن الحقيقي"
+def triad_decrypt(cipher, key):
+    try:
+        decoded = base64.b64decode(cipher).decode("utf-8")
+        if key in decoded:
+            return decoded.replace(f"::{key}", "")
+        return "❌ الوصول مرفوض: مفتاح خاطئ!"
+    except:
+        return "⚠️ خطأ في بنية الشفرة!"
 
-# عملية التشفير
-cipher = triad_encrypt(my_message, MY_KEY)
+# --- واجهة التفاعل في الزمن الحقيقي ---
+def run_sekhem_console():
+    MY_KEY = "SK-TR-2026-X99"
+    ADMIN = "M_ABD_EL_NABY"
+    
+    print("="*40)
+    print(f"🛡️  SEKHEM-CC SYSTEM | ADMIN: {ADMIN}")
+    print(f"⏰ TIME: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print("="*40)
+    
+    while True:
+        print("\n[1] تشفير رسالة جديدة")
+        print("[2] فك تشفير رسالة")
+        print("[3] الخروج من المنظومة")
+        
+        choice = input("\n👤 اختر رقم المهمة: ")
+        
+        if choice == "1":
+            msg = input("📝 أدخل النص المراد حمايته: ")
+            result = triad_encrypt(msg, MY_KEY)
+            print(f"🔐 الشفرة الناتجة: {result}")
+            
+        elif choice == "2":
+            code = input("🔐 أدخل الشفرة لفكها: ")
+            result = triad_decrypt(code, MY_KEY)
+            print(f"🔓 النتيجة: {result}")
+            
+        elif choice == "3":
+            print("👋 تم تسجيل الخروج. نظام Sekhem-CC في وضع الاستعداد.")
+            break
+        else:
+            print("⚠️ اختيار غير صحيح!")
 
-# طباعة النتيجة النهائية للتأكد
-print(f"--- [REAL-TIME LOG: {current_time}] ---")
-print(f"📡 الإدخال: {my_message}")
-print(f"🔐 التشفير: {cipher}")
-print(f"🔓 التحقق: {triad_decrypt(cipher, MY_KEY)}")
-
+# تفعيل المنظومة
+if __name__ == "__main__":
+    run_sekhem_console()
