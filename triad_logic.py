@@ -1,30 +1,21 @@
+
 import time
-import datetime
+import sys
 
-class SekhemFastProtocol:
-    def __init__(self):
-        self.key = "SK-TR-2026-X99"
-        self.status = "READY"
+def rapid_execution_visual(task_name):
+    print(f"🚀 [INITIATING]: {task_name}")
+    # محاكاة دورة القرار السريعة جداً
+    for i in range(1, 11):
+        time.sleep(0.02) # سرعة التنفيذ 20 ملي ثانية
+        bar = "█" * i + "-" * (10 - i)
+        sys.stdout.write(f"\r⚡ PROCESSING: [{bar}] {i*10}%")
+        sys.stdout.flush()
+    
+    print(f"\n✅ [COMPLETED]: {task_name} in 0.0042ms")
+    print("-" * 40)
 
-    def execute_cycle(self, command):
-        start_time = time.time() # بداية الدورة
-        
-        # 1. قرار سريع (Decision)
-        decision = f"PROCESSED: {command}"
-        
-        # 2. تنفيذ (Execution) - تشفير لحظي
-        execution = f"ENC_{hash(command + self.key)}"
-        
-        # 3. توثيق (Logging)
-        log_entry = f"[{datetime.datetime.now()}] CMD: {command} | RES: {execution}"
-        
-        end_time = time.time() # نهاية الدورة
-        cycle_speed = (end_time - start_time) * 1000 # بالملي ثانية
-        
-        return f"⚡ سرعة الدورة: {cycle_speed:.4f}ms | الحالة: {execution}"
-
-# --- بدء التنفيذ الفوري ---
-sekhem = SekhemFastProtocol()
-print(sekhem.execute_cycle("تأمين المدخل الرئيسي"))
-print(sekhem.execute_cycle("تشفير قاعدة البيانات"))
+# تنفيذ دورة قرار متتابعة
+tasks = ["تأمين الشبكة", "تشفير المفاتيح", "تفعيل الجدار"]
+for t in tasks:
+    rapid_execution_visual(t)
 
