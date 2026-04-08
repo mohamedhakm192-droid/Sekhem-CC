@@ -1,125 +1,115 @@
-
 import time
 import numpy as np
 
 # ===============================
-# SEKHEM C C CONFIG
+# SEKHEM C C — CONFIG
 # ===============================
-ALPHA = 0.05          # Learning rate (Meta)
-DELTA_SYNC = 0.003    # 3 ms sync threshold
-QUALITY_TH = 0.5      # Threshold on precision
-K_INIT = 0.3          # Initial Kalman gain
+DT_TARGET = 0.02
+ALPHA = 0.03
+
+true_value = 100.0
+sigmas = np.array([2.0, 3.0, 4.0])
 
 # ===============================
-# SENSOR SIMULATION (RAW)
-# X_i = x* + noise  --> (Statistical Model)
+# SEKHEM C C — LAYER 1: PERCEPTION
 # ===============================
-def sensor(true_value, noise_std):
-    return true_value + np.random.normal(0, noise_std)
+def SEKHEM_CC_PERCEPTION():
+    X = np.array([
+        true_value + np.random.normal(0, sigmas[0]),
+        true_value + np.random.normal(0, sigmas[1]),
+        true_value + np.random.normal(0, sigmas[2]),
+    ])
+    print("[SEKHEM C C][PERCEPTION] X:", X)
+    return X
 
 # ===============================
-# ANALYSIS MODELS f_i(X_i)
-# (Different transformations = independence)
+# SEKHEM C C — LAYER 2: ANALYSIS
 # ===============================
-def model_1(x): return x
-def model_2(x): return x * 1.02
-def model_3(x): return x * 0.98
+def SEKHEM_CC_ANALYSIS(X):
+    A = np.array([
+        X[0],
+        X[1] * 1.02,
+        X[2] * 0.98
+    ])
+    print("[SEKHEM C C][ANALYSIS] A:", A)
+    return A
 
 # ===============================
-# INVERSE VARIANCE WEIGHTS
-# w_i = (1/sigma^2) / sum(1/sigma^2)
-# (Derived from Lagrange optimization)
+# SEKHEM C C — LAYER 3: STRUCTURED
 # ===============================
-def compute_weights(sigmas):
-    inv = 1.0 / (sigmas ** 2)
+def SEKHEM_CC_STRUCTURED(A):
+    P = (A - np.mean(A)) / (np.std(A) + 1e-6)
+    print("[SEKHEM C C][STRUCTURED] P:", P)
+    return P
+
+# ===============================
+# SEKHEM C C — LAYER 4: FILTER
+# ===============================
+K = 0.3
+
+def SEKHEM_CC_FILTER(P):
+    Z = P + np.random.normal(0, 0.3, 3)
+    F = P + K * (Z - P)
+    print("[SEKHEM C C][FILTER] F:", F)
+    return F
+
+# ===============================
+# SEKHEM C C — LAYER 5: TRIANGULATION
+# ===============================
+def SEKHEM_CC_WEIGHTS(sigmas):
+    inv = 1.0 / (sigmas**2)
     return inv / np.sum(inv)
 
-# ===============================
-# KALMAN-LIKE FILTER
-# X_hat = X + K(Z - X)
-# (Control theory / estimation)
-# ===============================
-def kalman_update(x, z, K):
-    return x + K * (z - x)
+weights = SEKHEM_CC_WEIGHTS(sigmas)
+
+def SEKHEM_CC_TRIANGULATION(F):
+    global weights
+    x_hat = np.sum(F * weights)
+    print("[SEKHEM C C][TRIANGULATION] x_hat:", x_hat)
+    return x_hat
 
 # ===============================
-# TRIANGULATION
-# X_hat = sum(w_i * X_i)
-# (Linear estimator)
+# SEKHEM C C — LAYER 6: DECISION
 # ===============================
-def triangulate(values, weights):
-    return np.sum(values * weights)
-
-# ===============================
-# QUALITY (PRECISION)
-# Q = 1 / Var
-# ===============================
-def quality(sigmas):
-    return 1.0 / np.sum(sigmas**2)
+def SEKHEM_CC_DECISION(x_hat):
+    confidence = 1 / np.sum(sigmas)
+    decision = x_hat if confidence > 0.2 else "NO DECISION"
+    print("[SEKHEM C C][DECISION]", decision)
+    return decision, confidence
 
 # ===============================
-# MAIN LOOP (REAL-TIME)
+# SEKHEM C C — LAYER 7: FEEDBACK
 # ===============================
-true_value = 100.0
-sigmas = np.array([2.0, 3.0, 4.0])   # noise std لكل مستشعر
-weights = compute_weights(sigmas)
+def SEKHEM_CC_FEEDBACK(x_hat):
+    global weights
+    error = abs(true_value - x_hat)
+    performance = 1 / (sigmas + error)
 
-K = K_INIT
-
-for step in range(50):  # ~50 Hz
-    t0 = time.time()
-
-    # -------- RAW PERCEPTION --------
-    X = np.array([
-        sensor(true_value, sigmas[0]),
-        sensor(true_value, sigmas[1]),
-        sensor(true_value, sigmas[2])
-    ])
-    t1 = time.time()
-
-    # -------- ANALYSIS (AI MODELS) --------
-    A = np.array([
-        model_1(X[0]),
-        model_2(X[1]),
-        model_3(X[2])
-    ])
-    t2 = time.time()
-
-    # -------- FILTERING --------
-    Z = A + np.random.normal(0, 0.5, 3)  # measurement update
-    X_filt = np.array([
-        kalman_update(A[i], Z[i], K) for i in range(3)
-    ])
-    t3 = time.time()
-
-    # -------- TRIANGULATION --------
-    X_hat = triangulate(X_filt, weights)
-    t4 = time.time()
-
-    # -------- QUALITY CHECK --------
-    Q = quality(sigmas)
-
-    if Q < QUALITY_TH:
-        decision = "NO DECISION"
-    else:
-        decision = X_hat
-    t5 = time.time()
-
-    # -------- FEEDBACK (META UPDATE) --------
-    error = abs(true_value - X_hat)
-
-    # تحديث بسيط للأوزان
-    performance = 1.0 / (sigmas + error)
     weights = weights + ALPHA * (performance / np.sum(performance))
     weights = weights / np.sum(weights)
 
-    t6 = time.time()
+    print("[SEKHEM C C][FEEDBACK] Error:", error)
+    print("[SEKHEM C C][FEEDBACK] Updated Weights:", weights)
 
-    # -------- TIMING --------
-    T_cycle = (t6 - t0) * 1000  # ms
+    return error
 
-    print(f"\nStep {step}")
-    print(f"Estimate: {X_hat:.3f} | Error: {error:.3f}")
-    print(f"Weights: {weights}")
-    print(f"Decision: {decision}")
-    print(f"Cycle Time: {T_cycle:.2f} ms")
+# ===============================
+# SEKHEM C C — MAIN LOOP
+# ===============================
+for step in range(10):
+    t0 = time.time()
+
+    X = SEKHEM_CC_PERCEPTION()
+    A = SEKHEM_CC_ANALYSIS(X)
+    P = SEKHEM_CC_STRUCTURED(A)
+    F = SEKHEM_CC_FILTER(P)
+    x_hat = SEKHEM_CC_TRIANGULATION(F)
+    decision, conf = SEKHEM_CC_DECISION(x_hat)
+    error = SEKHEM_CC_FEEDBACK(x_hat)
+
+    t1 = time.time()
+    cycle_time = (t1 - t0) * 1000
+
+    print(f"\n[SEKHEM C C][CYCLE {step}] Time: {cycle_time:.2f} ms\n")
+
+    time.sleep(max(0, DT_TARGET - (t1 - t0)))
