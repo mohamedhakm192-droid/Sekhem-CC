@@ -1,115 +1,121 @@
 import time
 import numpy as np
 
-# ===============================
+# =========================================
 # SEKHEM C C — CONFIG
-# ===============================
-DT_TARGET = 0.02
-ALPHA = 0.03
+# =========================================
+SEKHEM_CC_NUM_TARGETS = 100
+SEKHEM_CC_DT_TARGET = 0.02   # 20 ms → 50 Hz
+SEKHEM_CC_ALPHA = 0.02
 
-true_value = 100.0
-sigmas = np.array([2.0, 3.0, 4.0])
+SEKHEM_CC_TRUE_VALUES = np.random.uniform(80, 120, SEKHEM_CC_NUM_TARGETS)
+SEKHEM_CC_SIGMAS = np.array([2.0, 3.0, 4.0])
 
-# ===============================
+# =========================================
 # SEKHEM C C — LAYER 1: PERCEPTION
-# ===============================
-def SEKHEM_CC_PERCEPTION():
-    X = np.array([
-        true_value + np.random.normal(0, sigmas[0]),
-        true_value + np.random.normal(0, sigmas[1]),
-        true_value + np.random.normal(0, sigmas[2]),
-    ])
-    print("[SEKHEM C C][PERCEPTION] X:", X)
+# =========================================
+def SEKHEM_CC_LAYER_PERCEPTION():
+    noise = np.random.normal(0, SEKHEM_CC_SIGMAS.reshape(3,1),
+                             (3, SEKHEM_CC_NUM_TARGETS))
+    X = SEKHEM_CC_TRUE_VALUES + noise
+    print("[SEKHEM C C][PERCEPTION] Shape:", X.shape)
     return X
 
-# ===============================
+# =========================================
 # SEKHEM C C — LAYER 2: ANALYSIS
-# ===============================
-def SEKHEM_CC_ANALYSIS(X):
-    A = np.array([
-        X[0],
-        X[1] * 1.02,
-        X[2] * 0.98
-    ])
-    print("[SEKHEM C C][ANALYSIS] A:", A)
+# =========================================
+def SEKHEM_CC_LAYER_ANALYSIS(X):
+    A = np.zeros_like(X)
+    A[0] = X[0]
+    A[1] = X[1] * 1.02
+    A[2] = X[2] * 0.98
+    print("[SEKHEM C C][ANALYSIS] Done")
     return A
 
-# ===============================
+# =========================================
 # SEKHEM C C — LAYER 3: STRUCTURED
-# ===============================
-def SEKHEM_CC_STRUCTURED(A):
-    P = (A - np.mean(A)) / (np.std(A) + 1e-6)
-    print("[SEKHEM C C][STRUCTURED] P:", P)
+# =========================================
+def SEKHEM_CC_LAYER_STRUCTURED(A):
+    mean = np.mean(A, axis=0)
+    std = np.std(A, axis=0) + 1e-6
+    P = (A - mean) / std
+    print("[SEKHEM C C][STRUCTURED] Normalized")
     return P
 
-# ===============================
+# =========================================
 # SEKHEM C C — LAYER 4: FILTER
-# ===============================
-K = 0.3
+# =========================================
+SEKHEM_CC_K = 0.3
 
-def SEKHEM_CC_FILTER(P):
-    Z = P + np.random.normal(0, 0.3, 3)
-    F = P + K * (Z - P)
-    print("[SEKHEM C C][FILTER] F:", F)
+def SEKHEM_CC_LAYER_FILTER(P):
+    Z = P + np.random.normal(0, 0.3, P.shape)
+    F = P + SEKHEM_CC_K * (Z - P)
+    print("[SEKHEM C C][FILTER] Applied")
     return F
 
-# ===============================
+# =========================================
 # SEKHEM C C — LAYER 5: TRIANGULATION
-# ===============================
-def SEKHEM_CC_WEIGHTS(sigmas):
+# =========================================
+def SEKHEM_CC_COMPUTE_WEIGHTS(sigmas):
     inv = 1.0 / (sigmas**2)
     return inv / np.sum(inv)
 
-weights = SEKHEM_CC_WEIGHTS(sigmas)
+SEKHEM_CC_WEIGHTS = SEKHEM_CC_COMPUTE_WEIGHTS(SEKHEM_CC_SIGMAS)
 
-def SEKHEM_CC_TRIANGULATION(F):
-    global weights
-    x_hat = np.sum(F * weights)
-    print("[SEKHEM C C][TRIANGULATION] x_hat:", x_hat)
+def SEKHEM_CC_LAYER_TRIANGULATION(F):
+    global SEKHEM_CC_WEIGHTS
+    x_hat = np.sum(F * SEKHEM_CC_WEIGHTS.reshape(3,1), axis=0)
+    print("[SEKHEM C C][TRIANGULATION] Computed")
     return x_hat
 
-# ===============================
+# =========================================
 # SEKHEM C C — LAYER 6: DECISION
-# ===============================
-def SEKHEM_CC_DECISION(x_hat):
-    confidence = 1 / np.sum(sigmas)
-    decision = x_hat if confidence > 0.2 else "NO DECISION"
-    print("[SEKHEM C C][DECISION]", decision)
-    return decision, confidence
+# =========================================
+def SEKHEM_CC_LAYER_DECISION(x_hat):
+    confidence = 1 / np.sum(SEKHEM_CC_SIGMAS)
+    decisions = np.where(confidence > 0.2, x_hat, np.nan)
+    print("[SEKHEM C C][DECISION] Confidence:", round(confidence,3))
+    return decisions, confidence
 
-# ===============================
+# =========================================
 # SEKHEM C C — LAYER 7: FEEDBACK
-# ===============================
-def SEKHEM_CC_FEEDBACK(x_hat):
-    global weights
-    error = abs(true_value - x_hat)
-    performance = 1 / (sigmas + error)
+# =========================================
+def SEKHEM_CC_LAYER_FEEDBACK(x_hat):
+    global SEKHEM_CC_WEIGHTS
+    error = np.abs(SEKHEM_CC_TRUE_VALUES - x_hat)
 
-    weights = weights + ALPHA * (performance / np.sum(performance))
-    weights = weights / np.sum(weights)
+    performance = 1 / (SEKHEM_CC_SIGMAS.reshape(3,1) + np.mean(error))
 
-    print("[SEKHEM C C][FEEDBACK] Error:", error)
-    print("[SEKHEM C C][FEEDBACK] Updated Weights:", weights)
+    SEKHEM_CC_WEIGHTS = SEKHEM_CC_WEIGHTS + SEKHEM_CC_ALPHA * np.mean(performance, axis=1)
+    SEKHEM_CC_WEIGHTS = SEKHEM_CC_WEIGHTS / np.sum(SEKHEM_CC_WEIGHTS)
 
-    return error
+    print("[SEKHEM C C][FEEDBACK] Mean Error:", round(np.mean(error),3))
+    print("[SEKHEM C C][FEEDBACK] Updated Weights:", SEKHEM_CC_WEIGHTS)
 
-# ===============================
+    return np.mean(error)
+
+# =========================================
 # SEKHEM C C — MAIN LOOP
-# ===============================
+# =========================================
 for step in range(10):
     t0 = time.time()
 
-    X = SEKHEM_CC_PERCEPTION()
-    A = SEKHEM_CC_ANALYSIS(X)
-    P = SEKHEM_CC_STRUCTURED(A)
-    F = SEKHEM_CC_FILTER(P)
-    x_hat = SEKHEM_CC_TRIANGULATION(F)
-    decision, conf = SEKHEM_CC_DECISION(x_hat)
-    error = SEKHEM_CC_FEEDBACK(x_hat)
+    X = SEKHEM_CC_LAYER_PERCEPTION()
+    A = SEKHEM_CC_LAYER_ANALYSIS(X)
+    P = SEKHEM_CC_LAYER_STRUCTURED(A)
+    F = SEKHEM_CC_LAYER_FILTER(P)
+    x_hat = SEKHEM_CC_LAYER_TRIANGULATION(F)
+    decisions, conf = SEKHEM_CC_LAYER_DECISION(x_hat)
+    error = SEKHEM_CC_LAYER_FEEDBACK(x_hat)
 
     t1 = time.time()
-    cycle_time = (t1 - t0) * 1000
 
-    print(f"\n[SEKHEM C C][CYCLE {step}] Time: {cycle_time:.2f} ms\n")
+    cycle_time = (t1 - t0)
+    sleep_time = max(0, SEKHEM_CC_DT_TARGET - cycle_time)
+    time.sleep(sleep_time)
 
-    time.sleep(max(0, DT_TARGET - (t1 - t0)))
+    total_time = (cycle_time + sleep_time) * 1000
+
+    print(f"\n[SEKHEM C C][CYCLE {step}]")
+    print(f"Targets: {SEKHEM_CC_NUM_TARGETS}")
+    print(f"Cycle Time: {total_time:.2f} ms\n")
