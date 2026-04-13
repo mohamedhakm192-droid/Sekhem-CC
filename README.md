@@ -10,8 +10,7 @@ DOI: https://doi.org/10.5281/zenodo.19521219
 SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium principles.
 
 ---
-
-## Features
+ ## Features
 - Real-time tracking  
 - No training required  
-  - Stable under noise
+- Stable under noise  
