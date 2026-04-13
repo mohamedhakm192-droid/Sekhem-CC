@@ -1,4 +1,4 @@
-e_clean"}
+
 # SEKHEM-TSDD System
 
 Author: Mohamed Abd Elnaby  
@@ -14,4 +14,4 @@ SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium princ
 ## Features
 - Real-time tracking  
 - No training required  
-- Stable under noi
+  - Stable under noise
