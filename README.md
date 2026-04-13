@@ -1,23 +1,18 @@
-# Sekhem-CC
-The Law of Triangulation: A foundational defense framework and governing logic for the SEKHEM-CC system.
-# 🛡️ SEKHEM-CC 
-### منظومة سِخِم للدفاع الرقمي (The Law of Triangulation)
+SEKHEM-TSDD System
 
-## 👤 المؤسس والمبتكر (Founder)
-**Mohamed Abd El Naby** (محمد عبد النبي)
+Author: Mohamed Abd Elnaby
+DOI: https://doi.org/10.5281/zenodo.19521219
 
-## 📜 الرؤية والمنطق (Vision & Logic)
-تعتمد هذه المنظومة على **"قانون التثليث كقانون حاكم"** (The Law of Triangulation). هو إطار عمل دفاعي يدمج بين المنطق الهندسي، الفلسفة التقنية، والتنفيذ البرمجي لإنشاء أنظمة حماية غير قابلة للاختراق بناءً على التوازن الثلاثي.
+⸻
 
-## 📐 الركائز الأساسية (Core Pillars)
-1. **The Triad Logic:** المنطق الثلاثي المحرك للنظام.
-2. **Geometric Defense:** الهندسة الدفاعية المعتمدة على زوايا التثليث.
-3. **SEKHEM Core:** وحدة التنفيذ التقنية المركزية.
+Overview
 
-## 🛠️ حالة المشروع (Project Status)
-- [x] صياغة النظرية الأساسية (Theoretical Foundation)
-- [ ] بناء الخوارزمية الأولية (Algorithm Development)
-- [ ] المحاكاة والتدقيق (Simulation & Audit)
+SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium principles.
 
----
-*هذا المستودع خاص (Private) ويحتوي على ملكية فكرية مسجلة برقم تعريفي مشفر على خوادم GitHub.*
+⸻
+
+Features
+	•	Real-time tracking
+	•	No training required
+	•	Stable under noise
+ح
