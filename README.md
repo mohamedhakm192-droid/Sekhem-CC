@@ -11,7 +11,8 @@ SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium princ
 
 ## Definition
 
-SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium dynamics, designed to achieve stable and adaptive behavior without the need for prior trainin
+SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium dynamics, designed to achieve stable and adaptive behavior without the need for 
+prior training
 ---
  ## Features
 - Real-time tracking  
