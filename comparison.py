@@ -100,3 +100,7 @@ if avg_s < avg_k:
     print("Result: SEKHEM performs better (lower average error).")
 else:
     print("Result: Baseline performs better.")
+"}
+## Claim
+
+Under identical noisy conditions, SEKHEM-TSDD demonstrates faster convergence and lower tracking error compared to baseline filtering approache
