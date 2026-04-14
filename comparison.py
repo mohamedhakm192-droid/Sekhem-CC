@@ -81,3 +81,22 @@ plt.show()
 # ---------------- أرقام ----------------
 print("Average Error (SEKHEM):", np.mean(err_s))
 print("Average Error (Kalman):", np.mean(err_k))
+print("\n===== SEKHEM vs Baseline Comparison =====\n")
+
+avg_s = np.mean(err_s)
+avg_k = np.mean(err_k)
+
+max_s = np.max(err_s)
+max_k = np.max(err_k)
+
+print(f"Average Error (SEKHEM): {avg_s:.4f}")
+print(f"Average Error (Baseline): {avg_k:.4f}\n")
+
+print(f"Max Error (SEKHEM): {max_s:.4f}")
+print(f"Max Error (Baseline): {max_k:.4f}\n")
+
+# Decision
+if avg_s < avg_k:
+    print("Result: SEKHEM performs better (lower average error).")
+else:
+    print("Result: Baseline performs better.")
