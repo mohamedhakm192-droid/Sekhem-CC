@@ -14,3 +14,14 @@ SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium princ
 - Real-time tracking  
 - No training required  
 - Stable under noise  
+## Comparison
+
+SEKHEM-TSDD was tested against a baseline filtering approach under noisy conditions.
+
+Results show:
+- Faster convergence  
+- Lower tracking error  
+
+Run:
+```bash
+python comparison.py
