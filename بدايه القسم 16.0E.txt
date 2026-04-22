@@ -1,0 +1,30 @@
+🔷 Section 16 — Unified System Formulation
+
+16.0 System Overview (Final —Version)
+
+The SEKHEM-TSDD (Triangulated Stochastic Decision Dynamics) framework defines a unified decision–dynamical system integrating stochastic processes, probabilistic evolution, network interactions, and control mechanisms within a single closed-loop structure.
+
+⸻
+
+The system state is defined as:
+
+\Psi_k \in \Omega \subset \mathbb{R}^d, \quad \Omega \text{ is a compact domain}
+
+where \Psi_k denotes the system state at discrete time step k, and \Omega is a bounded and closed subset of \mathbb{R}^d.
+
+⸻
+
+The framework incorporates the following key components:
+	•	stochastic dynamics (modeled via stochastic differential equations)
+	•	probability evolution (governed by partial differential equations)
+	•	PAC-based triadic decision mechanisms
+	•	network coupling dynamics
+	•	optimal control formulation
+
+⸻
+
+All components interact within a unified mathematical structure, enabling consistent modeling of decision-driven systems under uncertainty.
+
+⸻
+
+This formulation establishes the foundation for the unified master equation presented in the next subsection.
