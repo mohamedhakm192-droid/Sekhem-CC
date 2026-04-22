@@ -1,59 +1,99 @@
-# SEKHEM-TSDD Framework
+SEKHEM-TSDD
 
-**Author:** Mohamed Abdelnaby  
-**Affiliation:** Independent Researcher – SEKHEM CC Framework  
+A Validated Energy-Based Triadic Decision Framework
 
----
+⸻
 
-## Overview
+Overview
 
-SEKHEM-TSDD is a closed stochastic–variational decision framework  
-based on triadic interaction principles.
+SEKHEM-TSDD is a unified decision–control framework in which decision-making is not computed, but emerges as a stable equilibrium of a validated energy-driven dynamical system.
 
-The model introduces a unified structure integrating:
+The framework operates over a triadic state space:
 
-- Dynamic decision processes  
-- Energy-based system modeling  
-- Stability guarantees  
-- Temporal synchronization mechanisms  
+X = (R, C, P)
 
----
+where:
+	•	R: Reality (perception)
+	•	C: Cognition (internal representation)
+	•	P: Prediction (future estimation)
 
-## Structure
+⸻
 
-The repository is organized into modular research sections:
+Core Principle
 
-- **Section 16:** Core Mathematical Foundation  
-- **Section 17:** Model Extensions  
-- **Section 18:** Stability Analysis (Lyapunov-based)  
-- **Section 19:** Energy Extension  
-- **Section 20:** Triadic Time & Synchronization  
+Decision is not computed—it emerges from validated energy dynamics.
 
-Each section represents a formal component of the full system.
+⸻
 
----
+Mathematical Model
 
-## Key Contribution
+Energy Function
 
-The SEKHEM-TSDD framework proposes a **closed-loop triadic decision architecture**  
-that unifies:
+E(X) = (R - C)^2 + (C - P)^2 + (R - P)^2
 
-- stochastic modeling  
-- variational principles  
-- system stability  
-- temporal coordination  
+System Dynamics
 
-into a single coherent mathematical structure.
+\dot{X} = -2LX + U_{eff}
 
----
+PAC Transformation
 
-## Repository Purpose
+\Phi_{PAC}(X) = X + \eta(\bar{X} - X)
 
-This repository contains the full structured development of the  
-SEKHEM-TSDD model, including all formal sections and extensions.
+Control Law
 
----
+U_{eff} = \gamma \cdot \alpha(Q) \cdot (1 - N) \cdot K \cdot \Phi_{PAC}(X)
 
-## Status
+Validation Gate
 
-Work in progress – actively structured for full academic publication.
+\gamma =
+\begin{cases}
+1 & I_{eff} \ge \theta \\
+0 & \text{otherwise}
+\end{cases}
+
+⸻
+
+Key Properties
+	•	Global stability (Lyapunov-based)
+	•	Exponential convergence
+	•	Noise robustness
+	•	Energy-constrained control
+	•	Built-in safety via validation gating
+
+⸻
+
+Repository Structure
+src/            # Core mathematical model
+simulation/     # Numerical experiments
+results/        # Output plots and logs
+figures/        # Architecture diagrams
+paper/          # PDF paper
+
+⸻
+
+Running the Simulation
+pip install -r requirements.txt
+python simulation/run_simulation.py
+
+⸻
+
+Results
+
+SEKHEM-TSDD demonstrates:
+	•	Faster convergence than RL
+	•	Lower oscillation
+	•	Reduced energy usage
+	•	No unsafe actions (validation-gated)
+
+⸻
+
+Paper
+
+Full paper available in:
+paper/SEKHEM_TSDD.pdf
+Author
+
+Mohamed Abdelnaby
+SEKHEM CC Framework
+
+ك
