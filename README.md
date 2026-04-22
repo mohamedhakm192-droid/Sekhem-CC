@@ -8,7 +8,11 @@ DOI: https://doi.org/10.5281/zenodo.19521219
 
 ## Overview
 SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium principles.
+## ▶️ Quick Start
 
+git clone https://github.com/USERNAME/SEKHEM-TSDD.git
+cd SEKHEM-TSDD
+python examples/basic_demo.py
 ## Definition
 
 SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium dynamics, designed to achieve stable and adaptive behavior without the need for 
