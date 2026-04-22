@@ -1,35 +1,43 @@
+SEKHEM-TSDD System
 
-# SEKHEM-TSDD System
-
-Author: Mohamed Abd Elnaby  
+Author: Mohamed Abd Elnaby
+Framework: SEKHEM CC
 DOI: https://doi.org/10.5281/zenodo.19521219
 
----
+⸻
 
-## Overview
-SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium principles.
-## ▶️ Quick Start
+ Overview
 
-git clone https://github.com/USERNAME/SEKHEM-TSDD.git
-cd SEKHEM-TSDD
-python examples/basic_demo.py
-## Definition
+SEKHEM-TSDD is a closed stochastic–variational decision framework
+based on triadic interaction (triangulation).
 
-SEKHEM-TSDD is a real-time decision framework based on triadic equilibrium dynamics, designed to achieve stable and adaptive behavior without the need for 
-prior training
----
- ## Features
-- Real-time tracking  
-- No training required  
-- Stable under noise  
-## Comparison
+The system models decision-making as an emergent process from three
+independent but interacting components operating in parallel.
 
-SEKHEM-TSDD was tested against a baseline filtering approach under noisy conditions.
+⸻
 
-Results show:
-- Faster convergence  
-- Lower tracking error  
+Core Principle
 
-Run:
-```bash
-python comparison.py
+All decisions emerge from structured triangulation
+across independent interacting components.
+
+This principle defines the foundation of the SEKHEM CC framework.
+
+⸻
+
+Architecture
+
+The system is built around:
+	•	Parallel Triadic Processing
+	•	Stochastic Decision Modeling
+	•	Variational Optimization
+	•	Closed-loop Feedback Control
+
+⸻
+
+Repository Structure
+	•	core/ → Core algorithms and system logic
+	•	docs/paper/ → Research paper and documentation
+	•	experiments/ → Simulations and test cases
+	•	notes/ → Development notes and ideas
+	•	security/ → Security and defensive modeling
