@@ -40,7 +40,8 @@ SEKHEM-TSDD demonstrates:
 
 ![Comparison](results/comparison.png)
 
- 
+ <img width="1283" height="2167" alt="image" src="https://github.com/user-attachments/assets/be0504e1-2b8e-4d50-bb9c-cefcba0233a5" />
+
 
 ⸻
 
