@@ -4,88 +4,74 @@ A Closed Stochastic–Variational Decision Framework Based on Triadic Interactio
 
 ⸻
 
-📌 Overview
+🚀 Overview
 
-SEKHEM-TSDD is a novel decision-making framework based on triadic interaction dynamics, designed to provide:
-	•	Faster convergence compared to classical Reinforcement Learning
-	•	Reduced oscillatory behavior
-	•	Energy-efficient decision policies
-	•	Safety-aware execution (validation-gated actions)
+SEKHEM-TSDD is a triadic decision framework based on three interacting components:
+	•	Φ (Phi): Goal-driven attraction
+	•	Ψ (Psi): Damping / stabilization
+	•	Ω (Omega): Energy control
+
+Together, they form a closed-loop decision system capable of stable and efficient behavior.
 
 ⸻
 
 🧠 Core Idea
 
-The system is built on a triadic structure:
-	•	Φ (Phi): Forward driving force
-	•	Ψ (Psi): Adaptive modulation
-	•	Ω (Omega): Stability and constraint regulator
+The decision function is:
 
-Together, they form a closed-loop decision mechanism.
+D(s) = Φ(s) + Ψ(s) + Ω(s)
 
-⸻
-
-📁 Repository Structure
-SEKHEM-TSDD/
-│
-├── src/                  # Core implementation
-├── simulations/          # Numerical experiments
-├── results/              # Output plots and logs
-├── paper/                # Full research paper (PDF)
-├── diagrams/             # Architecture diagrams
-├── requirements.txt
-└── README.md
+This triadic interaction enables:
+	•	Fast convergence
+	•	Reduced oscillations
+	•	Stable trajectories
 
 ⸻
 
-⚙️ Installation
-pip install -r requirements.txt
-
-⸻
-
-▶️ Running the Simulation
-python simulation/run_simulation.py
-
-⸻
-
-📊 Results
+📊 Experimental Results
 
 SEKHEM-TSDD demonstrates:
-	•	⚡ Faster convergence than RL
-	•	📉 Lower oscillation
-	•	🔋 Reduced energy usage
-	•	🛡️ No unsafe actions (validation-gated)
+	•	Faster convergence than classical RL
+	•	Lower steady-state error
+	•	Reduced oscillatory behavior
+
+🔥 Comparison with RL
 
 ⸻
 
-📄 Paper
+📉 Stability Behavior
 
-Full paper available at:
-paper/SEKHEM_TSDD.pdf
+⸻
+
+⚙️ How to Run
+pip install numpy matplotlib
+python SEKHEM-TSDD.py
+
+⸻
+
+🧩 Repository Structure
+SEKHEM-CC/
+│
+├── src/
+├── results/
+├── docs/
+└── README.md
 
 ⸻
 
 👤 Author
 
 Mohamed Abdelnaby
-Founder of SEKHEM CC Framework
-
-⸻
-
+SEKHEM CC Framework
 🔗 Citation
-DOI: 10.5281/zenodo.19521219
+
+If you use this work, please cite:
+
+Mohamed Abdelnaby,SEKHEM-TSDD: A Closed Stochastic–Variational Decision Framework Based on Triadic Interaction,Zenodo, 2026.DOI: https://doi.org/10.5281/zenodo.195
+
 
 ⸻
 
-🚀 Future Work
-	•	Integration with real-time systems (Radar / Robotics)
-	•	Reinforcement Learning hybridization
-	•	Digital Twin simulation environment
-	•	Edge AI deployment
+🧠 Statement
 
-⸻
-
-🧩 Keywords
-
-Triadic Systems, Decision Theory, Control Systems, AI, Optimization
-:::
+The triadic interaction (Φ, Ψ, Ω) enables stable and efficient decision dynamics, outperforming standard reinforcement learning baselines.
