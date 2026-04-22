@@ -35,18 +35,20 @@ SEKHEM-TSDD demonstrates:
 	•	Lower steady-state error
 	•	Reduced oscillatory behavior
 
+
 🔥 Comparison with RL
+
+![Comparison](results/comparison.pn
 
 ⸻
 
 📉 Stability Behavior
 
 ⸻
+HOW to RUN
 
-⚙️ How to Run
 pip install numpy matplotlib
 python SEKHEM-TSDD.py
-
 ⸻
 
 🧩 Repository Structure
@@ -56,6 +58,8 @@ SEKHEM-CC/
 ├── results/
 ├── docs/
 └── README.md
+
+
 
 ⸻
 
