@@ -1,99 +1,91 @@
 SEKHEM-TSDD
 
-A Validated Energy-Based Triadic Decision Framework
+A Closed Stochastic–Variational Decision Framework Based on Triadic Interaction
 
 ⸻
 
-Overview
+📌 Overview
 
-SEKHEM-TSDD is a unified decision–control framework in which decision-making is not computed, but emerges as a stable equilibrium of a validated energy-driven dynamical system.
-
-The framework operates over a triadic state space:
-
-X = (R, C, P)
-
-where:
-	•	R: Reality (perception)
-	•	C: Cognition (internal representation)
-	•	P: Prediction (future estimation)
+SEKHEM-TSDD is a novel decision-making framework based on triadic interaction dynamics, designed to provide:
+	•	Faster convergence compared to classical Reinforcement Learning
+	•	Reduced oscillatory behavior
+	•	Energy-efficient decision policies
+	•	Safety-aware execution (validation-gated actions)
 
 ⸻
 
-Core Principle
+🧠 Core Idea
 
-Decision is not computed—it emerges from validated energy dynamics.
+The system is built on a triadic structure:
+	•	Φ (Phi): Forward driving force
+	•	Ψ (Psi): Adaptive modulation
+	•	Ω (Omega): Stability and constraint regulator
 
-⸻
-
-Mathematical Model
-
-Energy Function
-
-E(X) = (R - C)^2 + (C - P)^2 + (R - P)^2
-
-System Dynamics
-
-\dot{X} = -2LX + U_{eff}
-
-PAC Transformation
-
-\Phi_{PAC}(X) = X + \eta(\bar{X} - X)
-
-Control Law
-
-U_{eff} = \gamma \cdot \alpha(Q) \cdot (1 - N) \cdot K \cdot \Phi_{PAC}(X)
-
-Validation Gate
-
-\gamma =
-\begin{cases}
-1 & I_{eff} \ge \theta \\
-0 & \text{otherwise}
-\end{cases}
+Together, they form a closed-loop decision mechanism.
 
 ⸻
 
-Key Properties
-	•	Global stability (Lyapunov-based)
-	•	Exponential convergence
-	•	Noise robustness
-	•	Energy-constrained control
-	•	Built-in safety via validation gating
+📁 Repository Structure
+SEKHEM-TSDD/
+│
+├── src/                  # Core implementation
+├── simulations/          # Numerical experiments
+├── results/              # Output plots and logs
+├── paper/                # Full research paper (PDF)
+├── diagrams/             # Architecture diagrams
+├── requirements.txt
+└── README.md
 
 ⸻
 
-Repository Structure
-src/            # Core mathematical model
-simulation/     # Numerical experiments
-results/        # Output plots and logs
-figures/        # Architecture diagrams
-paper/          # PDF paper
-
-⸻
-
-Running the Simulation
+⚙️ Installation
 pip install -r requirements.txt
+
+⸻
+
+▶️ Running the Simulation
 python simulation/run_simulation.py
 
 ⸻
 
-Results
+📊 Results
 
 SEKHEM-TSDD demonstrates:
-	•	Faster convergence than RL
-	•	Lower oscillation
-	•	Reduced energy usage
-	•	No unsafe actions (validation-gated)
+	•	⚡ Faster convergence than RL
+	•	📉 Lower oscillation
+	•	🔋 Reduced energy usage
+	•	🛡️ No unsafe actions (validation-gated)
 
 ⸻
 
-Paper
+📄 Paper
 
-Full paper available in:
+Full paper available at:
 paper/SEKHEM_TSDD.pdf
-Author
+
+⸻
+
+👤 Author
 
 Mohamed Abdelnaby
-SEKHEM CC Framework
+Founder of SEKHEM CC Framework
 
+⸻
 
+🔗 Citation
+DOI: 10.5281/zenodo.19521219
+
+⸻
+
+🚀 Future Work
+	•	Integration with real-time systems (Radar / Robotics)
+	•	Reinforcement Learning hybridization
+	•	Digital Twin simulation environment
+	•	Edge AI deployment
+
+⸻
+
+🧩 Keywords
+
+Triadic Systems, Decision Theory, Control Systems, AI, Optimization
+:::
