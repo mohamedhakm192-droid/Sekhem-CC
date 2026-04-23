@@ -38,8 +38,7 @@ SEKHEM-TSDD demonstrates:
 
 🔥 Comparison with RL
 
-
-![Comparison](results/comparison.png)
+![Comparison](docs/paper/system/results/comparison.png)
 
 
 ⸻
