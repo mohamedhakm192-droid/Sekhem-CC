@@ -44,8 +44,6 @@ Together, they form a closed-loop decision system capable of stable and efficien
                │
         └──── Feedback ──▶ (loop)
 
-
-
 ⸻
 
 📊 Experimental Results
@@ -56,9 +54,10 @@ SEKHEM-TSDD demonstrates:
 	•	Reduced oscillatory behavior
 
 
-🔥 Comparison with Comparison]
 
-![Comparison](docs/paper/system/results/comparison.png)
+🔥 Comparison with RL
+
+![Comparison](docs/paper/system/results/comparison.p
 ⸻
 
 
