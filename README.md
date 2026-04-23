@@ -14,17 +14,37 @@ SEKHEM-TSDD is a triadic decision framework based on three interacting component
 Together, they form a closed-loop decision system capable of stable and efficient behavior.
 
 ⸻
+🧠 SEKHEM Decision Architecture
+        ┌──────────────┐
+        │   State (s)  │
+        └──────┬───────┘
+               │
+        ┌──────▼───────┐
+        │   Φ (Phi)    │
+        │ Attraction   │
+        └──────┬───────┘
+               │
+        ┌──────▼───────┐
+        │   Ψ (Psi)    │
+        │ Damping      │
+        └──────┬───────┘
+               │
+        ┌──────▼───────┐
+        │   Ω (Omega)  │
+        │ Energy Ctrl  │
+        └──────┬───────┘
+               │
+        ┌──────▼───────┐
+        │ Decision D(s)│
+        └──────┬───────┘
+               │
+        ┌──────▼───────┐
+        │ Environment  │
+        └──────┬───────┘
+               │
+        └──── Feedback ──▶ (loop)
 
-🧠 Core Idea
 
-The decision function is:
-
-D(s) = Φ(s) + Ψ(s) + Ω(s)
-
-This triadic interaction enables:
-	•	Fast convergence
-	•	Reduced oscillations
-	•	Stable trajectories
 
 ⸻
 
