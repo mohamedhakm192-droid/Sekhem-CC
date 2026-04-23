@@ -36,12 +36,12 @@ SEKHEM-TSDD demonstrates:
 	•	Reduced oscillatory behavior
 
 
-🔥 Comparison with RL
+🔥 Comparison with 
 
-![Comparison](docs/paper/system/results/comparison.png)
-
-
+![Comparison]
+(docs/paper/system/results/comparison.png)
 ⸻
+
 
 📉 Stability Behavior
 
