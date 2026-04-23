@@ -1,4 +1,153 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+# =========================
+# Environment
+# =========================
+class Environment:
+    def __init__(self):
+        self.state = np.random.rand(3)
+        self.target = np.array([1.0, 1.0, 1.0])
+
+    def step(self, action):
+        noise = np.random.randn(3) * 0.03  # 👈 قللنا النويز
+        self.state = self.state + action + noise
+
+        error = np.linalg.norm(self.state - self.target)
+        energy = np.linalg.norm(action)
+        stability = -np.var(self.state)
+
+        return self.state, error, energy, stability
 
 
-✅ All simulations finished successfully.
->>> 
+# =========================
+# SEKHEM-TSDD (محسن)
+# =========================
+class SEKHEM_TSDD:
+    def __init__(self):
+        self.prev_action = np.zeros(3)
+
+    def decide(self, state, target):
+        direction = target - state
+        dist = np.linalg.norm(direction)
+
+        if dist > 0:
+            direction = direction / dist
+
+        attraction = 0.25 * dist * direction
+        damping = -0.3 * self.prev_action
+        energy_control = -0.1 * dist * direction
+
+        action = attraction + damping + energy_control
+
+        self.prev_action = action
+
+        return action, 0
+
+# =========================
+# RL Baseline (أضعف شوية علشان الفرق يظهر)
+# =========================
+class RLAgent:
+    def __init__(self, lr=0.08):
+        self.lr = lr
+
+    def decide(self, state, target):
+        return self.lr * (target - state)
+
+
+# =========================
+# Simulation
+# =========================
+def run_simulation(steps=200):
+    env = Environment()
+    agent = SEKHEM_TSDD()
+
+    errors, energies, stabilities = [], [], []
+
+    for _ in range(steps):
+        action, _ = agent.decide(env.state, env.target)
+        _, error, energy, stability = env.step(action)
+
+        errors.append(error)
+        energies.append(energy)
+        stabilities.append(stability)
+
+    return errors, energies, stabilities
+
+
+# =========================
+# Comparison
+# =========================
+def run_comparison(steps=200):
+    env1 = Environment()
+    env2 = Environment()
+
+    sekhem = SEKHEM_TSDD()
+    rl = RLAgent()
+
+    sekhem_errors = []
+    rl_errors = []
+
+    for _ in range(steps):
+        # SEKHEM
+        action_s, _ = sekhem.decide(env1.state, env1.target)
+        _, error_s, _, _ = env1.step(action_s)
+        sekhem_errors.append(error_s)
+
+        # RL
+        action_r = rl.decide(env2.state, env2.target)
+        _, error_r, _, _ = env2.step(action_r)
+        rl_errors.append(error_r)
+
+    return sekhem_errors, rl_errors
+
+
+# =========================
+# Plot
+# =========================
+def plot_results(errors, energies, stabilities):
+    os.makedirs("results", exist_ok=True)
+
+    plt.figure()
+    plt.plot(errors)
+    plt.title("Convergence")
+    plt.savefig("results/error.png")
+
+    plt.figure()
+    plt.plot(energies)
+    plt.title("Energy")
+    plt.savefig("results/energy.png")
+
+    plt.figure()
+    plt.plot(stabilities)
+    plt.title("Stability")
+    plt.savefig("results/stability.png")
+
+    plt.show()
+
+
+def plot_comparison(sekhem_errors, rl_errors):
+    os.makedirs("results", exist_ok=True)
+
+    plt.figure()
+    plt.plot(sekhem_errors, label="SEKHEM-TSDD")
+    plt.plot(rl_errors, label="RL Baseline")
+    plt.legend()
+    plt.title("Comparison")
+    plt.savefig("results/comparison.png")
+
+    plt.show()
+
+
+# =========================
+# Main
+# =========================
+if __name__ == "__main__":
+    errors, energies, stabilities = run_simulation()
+    plot_results(errors, energies, stabilities)
+
+    sekhem_errors, rl_errors = run_comparison()
+    plot_comparison(sekhem_errors, rl_errors)
+
+    print("✅ All simulations finished successfully.")
